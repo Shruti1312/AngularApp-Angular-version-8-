@@ -1,0 +1,311 @@
+<div class="mx-auto box-form">
+        <div style="text-align:center"><span class="form-header">Weather Search</span></div>
+        <br>
+        <form (ngSubmit)="onSubmit();" autocomplete="off">
+            <div class="form-group row required">
+                <div class="col-sm-3">
+                    <label for="street_id" style="color:white;font-size:18px" class=' street_id control-label'>Street</label>
+                </div>
+                <div class="col-sm-6">
+                    <input #at (change)="enableSubmitButton(st.value, ct.value, at.value)" [(ngModel)]='street_v' (keydown)="enableSubmitButton(st.value, ct.value, at.value)" (keyup)="enableSubmitButton(st.value, ct.value, at.value)" (keypress)="enableSubmitButton(st.value, ct.value, at.value)" [attr.disabled]="isInputDisable" name="street" (focusout)="OnStreetFocus(at.value)" type="text" class="form-control" id="street_id" placeholder="Enter Street Name" [formControl]="streetCtrl">
+                    <p id="street_error" style="color:red; font-weight:400;font-size:16px">{{street_err}}</p>
+                </div>
+            </div>
+    
+            <div class="form-group row required">
+                <div class="col-sm-3">
+                    <label for="city_id" style="color:white;font-size:18px" class="city_id control-label">City</label>
+                </div>
+                <div class="col-sm-6">
+                    <input #ct (change)="enableSubmitButton(st.value, ct.value, at.value)" [(ngModel)]='city_v' (keypress)="enableSubmitButton(st.value, ct.value, at.value)" [attr.disabled]="isInputDisable" autocomplete="disabled" (focusout)="OnCityFocus(ct.value)" type="text" id="city_id" placeholder="Enter City Name" [matAutocomplete]="auto" class="form-control" [formControl]="cityCntrl">
+                    <p id="city_error" style="color:red; font-weight:400;font-size:16px">{{city_err}}</p>
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option}}</mat-option>
+                    </mat-autocomplete>
+                </div>
+            </div>
+    
+            <div class="form-group row required">
+                <div class="col-sm-3">
+                    <label for="state_id" style="color:white;font-size:18px" class="state_id control-label">State</label>
+                </div>
+                <div class="col-sm-6">
+                    <select #st (change)="enableSubmitButton(st.value, ct.value, at.value)" [attr.disabled]="isInputDisable" [(ngModel)]='stateSelect' (focusout)="OnStateFocus(st.value)" id="state_id" [formControl]="stateCtrl" class="form-control custom-select mr-sm-2" style="width:80%">
+                        <option style="background-color: rgb(233, 233, 252);" value="">Select State</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="AL">Alabama</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="AK">Alaska</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="AZ">Arizona</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="AR">Arkansas</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="CA">California</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="CO">Colorado</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="CT">Connecticut</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="DE">Delaware</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="DC">District Of Columbia</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="FL">Florida</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="GA">Georgia</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="HI">Hawaii</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="ID">Idaho</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="IL">Illinois</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="IN">Indiana</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="IA">Iowa</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="KS">Kansas</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="KY">Kentucky</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="LA">Louisiana</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="ME">Maine</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="MD">Maryland</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="MA">Massachusetts</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="MI">Michigan</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="MN">Minnesota</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="MS">Mississippi</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="MO">Missouri</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="MT">Montana</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="NE">Nebraska</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="NV">Nevada</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="NH">New Hampshire</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="NJ">New Jersey</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="NM">New Mexico</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="NY">New York</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="NC">North Carolina</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="ND">North Dakota</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="OH">Ohio</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="OK">Oklahoma</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="OR">Oregon</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="PA">Pennsylvania</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="RI">Rhode Island</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="SC">South Carolina</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="SD">South Dakota</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="TN">Tennessee</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="TX">Texas</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="UT">Utah</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="VT">Vermont</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="VA">Virginia</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="WA">Washington</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="WV">West Virginia</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="WI">Wisconsin</option>
+                        <option style="background-color: rgb(233, 233, 252);" value="WY">Wyoming</option>
+                    </select>
+                    <p id="state_error" style="color:red; font-weight:400;font-size:16px">{{state_error}}</p>
+                </div>
+            </div>
+            <div class="form-group row" style="margin-left:1px;">
+                <div class="custom-control custom-checkbox mr-sm-2">
+                    <input style="background-color: white;color:white" name="currLocation" type="checkbox" [(ngModel)]="checked" class="custom-control-input" id="customControlAutosizing" (change)="enableDisable()">
+                    <label class="custom-control-label" for="customControlAutosizing" style="color:white;font-size:18px">Current Location</label>
+                </div> 
+            </div>
+            <div class="form-group row" style="margin-left:1px;">
+                <div class="col-auto">
+                    <button [disabled]="isSearchDisabled" type="submit"><i style="border: none;" [style.background-color]="isSearchDisabled ? 'rgb(204,216,225)' : 'white'" class="material-icons mdc-button__icon icon-transparent">search</i>Search</button>
+                </div>
+                <div class="col-auto">
+                    <button type="reset" (click) = "resetTheScreen()"><i style="border: none;" class="material-icons mdc-button__icon icon-transparent">clear_all</i>Clear</button>
+                </div>
+            </div>
+        </form>
+</div>
+
+<div class="mx-auto" style="width:20%;margin-top:3rem;">
+    <ul #tabs class="nav nav-pills nav-fill" id="myTab" role="tablist">
+        <li class="nav-item">
+            <button (click)="isfavActive = false; isresult = true; OnResultClick()" [ngClass]="isresult ? 'active-tab':''" id="result-tab" data-toggle="tab" href="#result" role="tab" aria-controls="current" aria-selected="true" type="button">Results</button>
+        </li>
+        <li class="nav-item">
+            <button (click)="isfavActive = true; isresult = alse; OnFavClick()" [ngClass]="isfavActive ? 'active-tab':''" id="favourites-tab" data-toggle="tab" href="#favourites" role="tab" aria-controls="current" aria-selected="false" type="button">Favorites</button>
+        </li>
+    </ul>
+</div>
+
+<div *ngIf="showprogress" class="progress mx-auto" style="width:50rem;margin-top:3rem;">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" [style.width] = "status" ></div>
+</div>
+
+<div *ngIf="showerror" class="mx-auto alert alert-warning" role="alert" style="width:50rem;margin-top:3rem;">
+    {{err}}
+</div>
+
+<div *ngIf="showthecontent" class="mx-auto" style="margin-top:3rem;margin-bottom: 5rem;width:50rem;">  
+    <div class="tab-content d-flex justify-content-center">
+        <div [ngClass]="isresult ? 'tab-pane fade show active':'tab-pane fade'" id="result" role="tabpanel" aria-labelledby="current-tab" style="width:50rem"> 
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a (click)="isCurrentTab = true; isHourlyTab = false; isWeeklyTab = false;" [ngClass]="isCurrentTab? 'nav-link active':'nav-link'"  id="current-tab" data-toggle="tab" href="#current" role="tab" aria-controls="current" aria-selected="true" style="color:black;font-weight:400;">Current</a>
+                </li>
+                <li class="nav-item">
+                    <a (click)="isCurrentTab = false; isHourlyTab = true; isWeeklyTab = false;" [ngClass]="isHourlyTab ? 'nav-link active':'nav-link'" id="hourly-tab" data-toggle="tab" href="#hourly" role="tab" aria-controls="hourly" aria-selected="false" style="color:black;font-weight:400;">Hourly</a>
+                </li>
+                <li class="nav-item">
+                    <a (click)="isCurrentTab = false; isHourlyTab = false; isWeeklyTab = true; OnTabClick()" [ngClass]="isWeeklyTab ? 'nav-link active':'nav-link'" id="weekly-tab" data-toggle="tab" href="#weekly" role="tab" aria-controls="weekly" aria-selected="false" style="color:black;font-weight:400;">Weekly</a>
+                </li>    
+                <li class="nav-item" style="margin-left: 55%">
+                    <a #are (click)="openInNewTab(are.href);"[href]="tweethref" lass="twitter-share-button" data-show-count="false"><img src="https://csci571.com/hw/hw8/Images/Twitter.png" height="35px" max-width="35px"></a>
+                </li>
+                <li class="nav-item">
+                    <button *ngIf="notfav" style="border:none"><i height="35px" max-width="35px" class="material-icons mdc-button__icon" (click)="addToFav()">star_border</i></button> 
+                    <button *ngIf="isfav" style="border:none;height:35px; max-width:35px;"><i class="material-icons mdc-button__icon icon-yellow" (click)="deleteFav()">star</i></button> 
+                </li>    
+            </ul>
+            <div class="mx-auto tab-content d-flex justify-content-center" style="width: 50rem;">
+                <div [ngClass]="isCurrentTab ? 'tab-pane fade show active':'tab-pane fade'" id="current" role="tabpanel" aria-labelledby="current-tab">
+                    <div class="card border-secondary" style="width: 35rem;background-color:rgb(165,208,238);border-radius:.5rem;padding:1rem;margin-top:5rem;">
+                        <div class="card-body">
+                            <div class="container">
+                                    <div class="row">
+                                            <div class="col-sm-7">
+                                                <div class="row">
+                                                    <h4 class="card-title mb-2" style="font-weight: 500;">{{city}}</h4></div>
+                                                <div class="row">
+                                                    <h5 class="card-subtitle mb-4 text-muted">{{timezone}}</h5></div>
+                                                <div class="row mb-2">
+                                                    <h1 class="card-text mb-4">{{temperature}}<sup><img src="https://cdn3.iconfinder.com/data/icons/virtual-notebook/16/button_shape_oval-512.png" height="13px" width="13px"></sup>&nbsp;F</h1></div>
+                                                <div class="row">
+                                                    <h5 class="card-text mb-4">{{summary}}</h5></div>
+                                            </div>
+                                            <div class="col-sm-5 d-flex justify-content-center">
+                                                <div class="row"><img [src]="sealsrc" height="180px" max-width="180px"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="row"><img matTooltipPosition="above" matTooltip="Humidity" src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-16-512.png" height="30px" max-width="30px"></div>
+                                                <div class="row">{{humidity}}</div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="row"><img matTooltipPosition="above" matTooltip="Pressure" src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-25-512.png" height="30px" max-width="30px"></div>
+                                                <div class="row">{{pressure}}</div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="row"><img matTooltipPosition="above" matTooltip="Wind Speed" src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-27-512.png" height="30px" max-width="30px"></div>
+                                                <div class="row">{{windspeed}}</div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="row"><img matTooltipPosition="above" matTooltip="Visibility" src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-30-512.png" height="30px" max-width="30px"></div>
+                                                <div class="row">{{visibility}}</div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="row"><img matTooltipPosition="above" matTooltip="Cloud Cover" src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-28-512.png" height="30px" max-width="30px"></div>
+                                                <div class="row">{{cloudcover}}</div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="row"><img matTooltipPosition="above" matTooltip="Ozone" src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-24-512.png" height="30px" max-width="30px"></div>
+                                                <div class="row">{{ozone}}</div>
+                                            </div>
+                                        </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div [ngClass]="isHourlyTab ? 'tab-pane fade show active':'tab-pane fade'" id="hourly" role="tabpanel" aria-labelledby="hourly-tab" style="width:100%;margin-top:5rem;">
+                    <select [(ngModel)]= "cSelect" #t (change)="onChange(t.value)" class="form-control custom-select mr-sm-2" style="width:30%">
+                        <option value="temperature" style="background-color: rgb(233, 233, 252);">Temperature</option>
+                        <option value="pressure" style="background-color: rgb(233, 233, 252);">Pressure</option>
+                        <option value="humidity" style="background-color: rgb(233, 233, 252);">Humidity</option>
+                        <option value="ozone" style="background-color: rgb(233, 233, 252);">Ozone</option>
+                        <option value="visibility" style="background-color: rgb(233, 233, 252);">Visibility</option>
+                        <option value="windspeed" style="background-color: rgb(233, 233, 252);">Wind Speed</option>
+                    </select>
+                    <div *ngIf="showTempChart" style="max-width:50rem">
+                        <canvas baseChart [datasets]="barChartData_temp" [labels]="barChartLabels" [options]="barChartOptions_temp" [legend]="barChartLegend" [plugins]="barChartPlugins" [chartType]="barChartType">
+                        </canvas>
+                    </div>
+                    <div *ngIf="showPressureChart" style="max-width:50rem">
+                        <canvas baseChart [datasets]="barChartData_pressure" [labels]="barChartLabels" [options]="barChartOptions_pressure" [legend]="barChartLegend" [chartType]="barChartType">
+                        </canvas>
+                    </div>
+                    <div *ngIf="showHumidityChart" style="max-width:50rem">
+                        <canvas baseChart [datasets]="barChartData_humidity" [labels]="barChartLabels" [options]="barChartOptions_humidity" [legend]="barChartLegend" [chartType]="barChartType">
+                        </canvas>
+                    </div>
+                    <div *ngIf="showOzoneChart" style="max-width:50rem">
+                        <canvas baseChart [datasets]="barChartData_ozone" [labels]="barChartLabels" [options]="barChartOptions_ozone" [legend]="barChartLegend" [chartType]="barChartType">
+                        </canvas>
+                    </div>
+                    <div *ngIf="showVisibilityChart" style="max-width:50rem">
+                        <canvas baseChart [datasets]="barChartData_visibility" [labels]="barChartLabels" [options]="barChartOptions_visibility" [legend]="barChartLegend" [chartType]="barChartType">
+                        </canvas>
+                    </div>
+                    <div *ngIf="showWindSpeedChart" style="max-width:50rem">
+                        <canvas baseChart [datasets]="barChartData_windspeed" [labels]="barChartLabels" [options]="barChartOptions_windspeed" [legend]="barChartLegend" [chartType]="barChartType">
+                        </canvas>
+                    </div>
+                </div>
+                <div [ngClass]="isWeeklyTab ? 'tab-pane fade show active':'tab-pane fade'" id="weekly" role="tabpanel" aria-labelledby="weekly-tab" style="width:100%;margin-top:5rem;">
+                    <div id="abc" style="width:50rem;margin-bottom: 3rem;"></div>
+                </div>
+            </div>
+            <div [style.display]="showModal ? 'block' : 'none'" sclass="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color: rgb(110, 145, 170);">
+                            <h3 class="modal-title" id="exampleModalLabel">{{date_detail}}</h3>
+                            <button type="button" style="background-color: transparent;border: none;" class="close" (click)="hideModel()" data-dismiss="modal" aria-label="Close">
+                                <h3 aria-hidden="true">&#10006;</h3>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="background-color: rgb(165, 208, 238);">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="row"><span class="card-text" style="font-size: 2rem;font-weight:500">{{city_detail}}</span></div>
+                                        <div class="row"><span class="card-text" style="font-size: 3.5rem;font-weight:500">{{temperature_detail}}<sup><img src="https://cdn3.iconfinder.com/data/icons/virtual-notebook/16/button_shape_oval-512.png" height="13px" max-width="13px"></sup>&nbsp;F</span></div>
+                                        <div class="row">
+                                            <h6>{{summary_detail}}</h6></div>
+                                    </div>
+                                    <div class="col-sm-6 d-flex justify-content-center">
+                                        <div class="row"><img [src]="weather_png" height="160px" max-width="160px"></div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-6"></div>
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <h6>{{detail1}}</h6></div>
+                                        <div class="row">
+                                            <h6>{{detail2}}</h6></div>
+                                        <div class="row">
+                                            <h6>{{detail3}}</h6></div>
+                                        <div class="row">
+                                            <h6>{{detail4}}</h6></div>
+                                        <div class="row">
+                                            <h6>{{detail5}}</h6></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <div [ngClass]="isfavActive ? 'tab-pane fade show active':'tab-pane fade'" id="favourites" role="tabpanel" aria-labelledby="hourly-tab">
+            <table mdbTable class="mx-auto table table-striped" style="width:60rem;margin-top:5rem;margin-bottom: 5rem;">
+                <tr class="text-center">
+                    <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                </tr>
+                <tr class="text-center"  mdbTableCol *ngFor="let el of elements; index as i">
+                    <td class="counterCell"><h6></h6></td>
+                    <td><img src='{{el.image}}' height="50px" width="50px"></td>
+                    <td matTooltipPosition="below" matTooltip="{{el.city}}"><button (click) = 'loadCity(i)' style="background-color: transparent;border: none;" type="button" class="btn btn-link"><h6 style="color:rgb(62, 84, 209)">{{el.city}}</h6></button></td>
+                    <td><h6>{{el.state}}</h6></td>
+                    <td><button type="submit" style="border: none;"><i class="material-icons mdc-button__icon icon-yellow" (click) = 'deleteRow(i, el.city, el.state)'>delete</i></button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showOnload" role="tabpanel" aria-labelledby="hourly-tab">
+        <table mdbTable class="mx-auto table table-striped" style="width:60rem;margin-top:5rem;margin-bottom: 5rem;">
+            <tr class="text-center">
+                <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+            </tr>
+            <tr class="text-center" mdbTableCol *ngFor="let el of elements; index as i">
+                <td class="counterCell"><h6></h6></td>
+                <td><img src='{{el.image}}' height="50px" max-width="50px"></td>
+                <td ><button matTooltipPosition="below" matTooltip="{{el.city}}" (click) = 'loadCity(i)' style="background-color: transparent;border: none;" type="button" class="btn btn-link"><h6 style="color:rgb(62, 84, 209)">{{el.city}}</h6></button></td>
+                <td><h6>{{el.state}}</h6></td>
+                <td><button type="submit" style="border: none;"><i class="material-icons mdc-button__icon icon-yellow" (click) = 'deleteRow(i, el.city)'>delete</i></button></td>
+            </tr>
+        </table>
+</div>

@@ -1,0 +1,121 @@
+sup { vertical-align: top; position: relative; top: -0.75em; }
+
+.table-striped>tr:nth-child(even)>td{
+  background-color:rgb(165, 208, 238); 
+ }
+
+ .table-striped>tr:nth-child(odd)>td,
+ .table-striped>tr>th{
+  background-color: rgb(109, 144, 169); 
+ }
+
+ i.icon-yellow {
+  color: rgb(211, 166, 65);
+}
+
+table {
+    counter-reset: tableCount;     
+}
+.counterCell:before {              
+    content: counter(tableCount); 
+    counter-increment: tableCount; 
+    font-weight: bold;
+}
+
+
+
+
+#left-field{ 
+  float:left; 
+  width:20%;
+  height:100%;  
+  background-color:green;
+} 
+
+#right-field{ 
+  float:right;  
+  width:50%; 
+  margin-right:30%;
+  height:100%;
+  background-color:red;
+} 
+
+.form-header{
+  color:white;
+  font-weight:600;
+  font-size:40px;
+}
+
+.mdc-button__icon {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 2px;
+}
+
+button{
+    background-color:white;
+    color:grey;
+    font-size:16px;
+    border-radius:5px;
+    border: 1px solid black;
+    padding: 4px 10px;
+    font-weight:500;
+}
+
+.box-form{
+  box-shadow: 10px 10px 5px grey;
+  border: 1px solid black;
+  width:70%; 
+  background-color:rgb(110,145,170);
+  padding:2rem 3rem 2rem;
+  height:auto;
+  border-radius:7px;
+  margin-top:1%;
+}
+
+input[type="text"]::placeholder { /* Firefox, Chrome, Opera */ 
+  color: grey; 
+  font-weight:420px;
+} 
+
+.active-tab{
+  border: 1px solid black;
+  color:white;
+  background-color:rgb(110,145,170);
+  font-size:18px;
+  width:90px;
+  margin-right:2%;
+}
+
+.nonactive-tab{
+  border: 1px solid black;
+  color:grey;
+  background-color:white;
+  font-size:18px;
+  width:90px;
+}
+
+.city-style{
+  width:30px;
+  height:100px;
+}
+
+button:disabled,
+button[disabled]{
+  background-color: rgb(204,216,225);
+}
+
+.form-group.required .control-label:after { 
+  content:"*";
+  color:red;
+}
+
+.table-striped>tr:nth-child(even)>td{
+background-color:rgb(165, 208, 238); 
+}
+
+.table-striped>tr:nth-child(odd)>td,
+.table-striped>tr>th{
+background-color: rgb(109, 144, 169); 
+}
